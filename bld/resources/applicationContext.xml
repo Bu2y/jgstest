@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+                 destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <!--<property name="url">
+            <value><![CDATA[jdbc:mysql://127.0.0.1:3306/cvs_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai]]></value>
+        </property>-->
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/supplier?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC&amp;zeroDat"/>
+        <property name="username" value="root" />
+        <property name="password" value="1234" />
+    </bean>
+
+    <!-- 配置SqlSessionFactoryBean -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 引用数据源组件 -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 引用MyBatis配置文件中的配置 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <!-- 配置SQL映射文件信息 -->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:com/bianlidian/mapper/*.xml</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 配置SqlSessionTemplate -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <!-- 配置DAO -->
+    <bean id="sysUserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="MapperInterface" value="com.bianlidian.mapper.T_Sys_UserMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <!-- 配置业务Bean -->
+    <bean id="sysUserService" class="com.bianlidian.mapper.T_Sys_UserMapperImpl">
+        <property name="sysUserMapper" ref="sysUserMapper" />
+    </bean>
+</beans>

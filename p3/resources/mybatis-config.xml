@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+    <!-- 引入 database.properties 文件-->
+    <properties resource="database.properties"/>
+    <!-- 配置mybatis的log实现为LOG4J -->
+    <settings>
+        <setting name="logImpl" value="LOG4J" />
+        <!--开启二级缓存-->
+        <setting name="cacheEnabled" value="true"></setting>
+    </settings>
+
+    <typeAliases>
+        <!--自定义名称-->
+        <!--<typeAlias type="com.test.entity.T_Sys_User" alias="sysuser"></typeAlias>-->
+        <!--定义整个包，类名就是别名-->
+        <package name="com.test.entity"></package>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <!--配置事务管理，采用JDBC的事务管理  -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- POOLED:mybatis自带的数据源，JNDI:基于tomcat的数据源 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${pwd}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 将mapper文件加入到配置文件中 -->
+    <mappers>
+        <!--<mapper resource="com/test/mapper/TestMapper.xml"/>-->
+        <!--定义整个包(要求接口类与xml文件名一致)-->
+        <package name="com.test.mapper"></package>
+    </mappers>
+
+</configuration>

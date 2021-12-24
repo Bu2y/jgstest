@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.mapper.TestMapper">
+        <!--<resultMap id="ljcx" type="T_Sys_User">-->
+            <!--<id property="id" column="id"></id>-->
+            <!--<result property="rolename" column="roleName"></result>-->
+        <!--</resultMap>-->
+        <resultMap id="Role1" type="T_Sys_Role">
+            <id property="id" column="id"></id>
+            <result property="rolename" column="roleName"></result>
+        </resultMap>
+
+        <resultMap id="ljcx" type="T_Sys_User">
+            <id property="id" column="id"></id>
+            <result property="realname" column="realName"></result>
+            <association property="role" javaType="T_Sys_Role" resultMap="Role1">
+
+            </association>
+        </resultMap>
+
+
+        <resultMap id="user2" type="T_Sys_User">
+            <id property="id" column="id"/>
+            <result property="realname" column="realName"/>
+            <collection property="addresses" ofType="T_Address">
+                <id property="id" column="id"/>
+                <result property="contact" column="contact"/>
+                <result property="addressdesc" column="addressDesc"/>
+            </collection>
+        </resultMap>
+
+
+        <select id="count" resultType="int">
+            SELECT COUNT(1) FROM t_sys_user
+        </select>
+        <select id="getall" resultType="T_Sys_User">
+            SELECT * FROM  t_sys_user
+        </select>
+        <select id="byid" resultType="T_Sys_User">
+            SELECT * FROM t_sys_user WHERE realName LIKE CONCAT('%',#{name},'%') AND sex=#{sex}
+        </select>
+        <select id="all" resultType="T_Supplier">
+            SELECT COUNT(1) FROM t_supplier
+        </select>
+
+        <select id="ljcx" resultMap="ljcx">
+            SELECT * FROM t_sys_user u,t_sys_role r WHERE u.roleId=r.id AND u.realName LIKE CONCAT('%',#{name},'%') AND u.sex=#{sex}
+        </select>
+        <select id="dzcx" resultMap="user2">
+            SELECT u.realName,a.addressDesc,a.contact FROM t_sys_user u,t_address a WHERE u.realName LIKE CONCAT('%',#{name},'%') AND u.sex=#{sex} and  u.id=a.userId
+        </select>
+        <insert id="add" parameterType="T_Sys_User">
+            INSERT INTO t_sys_user VALUES (0,#{account},#{realName},#{password},#{sex},#{birthday},#{phone},#{address},#{roleid},1,now(),0,now())
+        </insert>
+        <delete id="del" parameterType="Long">
+            DELETE FROM t_sys_user WHERE id=#{id}
+        </delete>
+        <select id="cx" resultType="T_Sys_User">
+            SELECT  * FROM t_sys_user
+            <where>
+                <choose>
+                    <when test="name!=null">
+                        realName LIKE CONCAT('%',#{name},'%')
+                    </when>
+                    <when test="roleid!=null">
+                        AND roleId=#{roleid}
+                    </when>
+                    <otherwise>
+                        1=1
+                    </otherwise>
+                </choose>
+                <!--<if test="name!=null">-->
+                    <!--realName LIKE CONCAT('%',#{name},'%')-->
+                <!--</if>-->
+                <!--<if test="roleid!=null">-->
+                    <!--AND roleId=#{roleid}-->
+                <!--</if>-->
+            </where>
+        </select>
+        <select id="getbyroleid" resultType="T_Sys_User">
+            SELECT * FROM t_sys_user WHERE roleId IN
+            <foreach collection="list" item="a" open="(" separator="," close=")">
+                #{a}
+            </foreach>
+        </select>
+    <select id="getbyroleidArray" resultType="T_Sys_User">
+        SELECT * FROM t_sys_user WHERE roleId IN
+        <foreach collection="array" item="a" open="(" separator="," close=")">
+            #{a}
+        </foreach>
+    </select>
+    <update id="update" parameterType="T_Sys_User">
+        UPDATE t_sys_user
+--            省略set         省略结尾，号          省略条件id
+        <trim prefix="set" prefixOverrides="," suffix="where id=#{id}">
+            <if test="account!=null">
+                account=#{account}
+            </if>
+        </trim>
+    </update>
+    <select id="fenye" parameterType="T_Sys_User">
+        SELECT * FROM t_sys_user2
+        <where>
+            <if test="name!=null">
+                realName = #{name}
+            </if>
+        </where>
+        limit #{pagestar},#{pagesize}
+    </select>
+</mapper>

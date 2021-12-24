@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BBS_Message/BBS_Message.iml" filepath="$PROJECT_DIR$/BBS_Message/BBS_Message.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Redis/Redis.iml" filepath="$PROJECT_DIR$/Redis/Redis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring01/Spring01.iml" filepath="$PROJECT_DIR$/Spring01/Spring01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringMVC/SpringMVC.iml" filepath="$PROJECT_DIR$/SpringMVC/SpringMVC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Working/Working.iml" filepath="$PROJECT_DIR$/Working/Working.iml" />
+      <module fileurl="file://$PROJECT_DIR$/a/a.iml" filepath="$PROJECT_DIR$/a/a.iml" />
+      <module fileurl="file://$PROJECT_DIR$/asdf/asdf.iml" filepath="$PROJECT_DIR$/asdf/asdf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bld/bld.iml" filepath="$PROJECT_DIR$/bld/bld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ch10/ch10.iml" filepath="$PROJECT_DIR$/ch10/ch10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flowerAjax/flowerAjax.iml" filepath="$PROJECT_DIR$/flowerAjax/flowerAjax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gymstyem/gymstyem.iml" filepath="$PROJECT_DIR$/gymstyem/gymstyem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lianjie/lianjie.iml" filepath="$PROJECT_DIR$/lianjie/lianjie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lx/lx.iml" filepath="$PROJECT_DIR$/lx/lx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mavenapp/mavenapp.iml" filepath="$PROJECT_DIR$/mavenapp/mavenapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p3/p3.iml" filepath="$PROJECT_DIR$/p3/p3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p3ch02/p3ch02.iml" filepath="$PROJECT_DIR$/p3ch02/p3ch02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/p3ch03/p3ch03.iml" filepath="$PROJECT_DIR$/p3ch03/p3ch03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot/springboot.iml" filepath="$PROJECT_DIR$/springboot/springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/workspace.iml" filepath="$PROJECT_DIR$/workspace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xm4/xm4.iml" filepath="$PROJECT_DIR$/xm4/xm4.iml" />
+    </modules>
+  </component>
+</project>

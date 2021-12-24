@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bianlidian.mapper.T_Sys_UserMapper">
+    <resultMap id="user1" type="T_Sys_User">
+        <id property="id" column="id"/>
+        <result property="rolename" column="rolename"/>
+    </resultMap>
+    <select id="getConn" resultType="int">
+        SELECT count(1) from t_sys_user
+    </select>
+    <select id="getAll" resultType="T_Sys_User">
+        select * from T_Sys_User
+    </select>
+    <!--<select id="getByName" resultType="T_Sys_User">-->
+        <!--SELECT * from t_sys_user where realName like concat('%',#{xingming},'%') and sex=#{xingbie}-->
+    <!--</select>-->
+    <!--<resultMap id="user1" type="T_Sys_User">-->
+    <!--<id property="id" column="id"/>-->
+    <!--<result property="realname" column="realname"/>-->
+    <!--<association property="getRolen" column="T_Sys_Role">-->
+        <!--<id property="id" column="id"/>-->
+        <!--<result property="rolename" column="rolename"/>-->
+        <!--<result property="code" column="code"/>-->
+    <!--</association>-->
+<!--</resultMap>-->
+    <select id="getNameAndRoleName" resultMap="user1">
+        SELECT * FROM t_sys_user u,t_sys_role r where u.roleid=r.id and u.realname like concat ('%',#{name},'%')
+        and u.sex=#{sex}
+    </select>
+
+    <resultMap id="user2" type="T_Sys_User">
+        <id property="id" column="id"/>
+        <result property="realname" column="realName"/>
+        <collection property="addressList" ofType="T_Address">
+            <id property="id" column="contact"/>
+            <result property="contact" column="contact"/>
+            <result property="addressdesc" column="addressdesc"/>
+            <result property="tel" column="tel"/>
+        </collection>
+    </resultMap>
+    <!--<select id="getNameAndAddress" resultMap="user2">-->
+        <!--SELECT u.realName,a.contact,a.addressDesc,a.tel form T_sys_user u,t_address a where u.realName like concat('%',#{name},'%')-->
+        <!--and u.sex=#{sex}-->
+    <!--</select>-->
+
+    <select id="getByName" resultType="T_Sys_User" parameterType="map">
+        SELECT * FROM t_sys_user where realName like concat('#',#{xingming},"%"AND sex=#{xingbie})
+    </select>
+    <select id="getNameAndRoleName" resultMap="user1">
+        SELECT * FROM t_sys_user u,t_sys_user r where u.roleId realName like concat('%',#{name},"%")
+    </select>
+    <!--<select id="getNameAndRoleName" resultMap="user1">-->
+        <!--SELECT * FROM t_sys_role u,t_sys_user a where u.id=a.roleid and a.realName like concat('%',#{name},"%")-->
+    <!--</select>-->
+    <insert id="add" parameterType="T_Sys_User">
+        insert into t_sys_user values (0,#{account},#{realname},#{password},#{sex},#{birthday},#{phone},#{address},#{roleid},#{createduserid},#{createdtime},#{updateduserid},#{updatedtime})
+    </insert>
+    <delete id="delete" parameterType="long">
+        DELETE FROM t_sys_user where id=#{id}
+    </delete>
+    <update id="update" parameterType="T_Sys_User">
+        update t_sys_user set updatedUserId=#{updateuserid},updateTime=#{updatedtime} where id=#{id}
+    </update>
+</mapper>
